@@ -1,7 +1,7 @@
 # Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling
 
 Replication code for:
-> Roberts, H., Calastri, C., Batley, R. (under review) Evaluating open-source approaches for estimatinglevel-of-service attributes in transport choice modelling
+> Roberts, H., Calastri, C., Batley, R. (under review) Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling
 
 ## Overview
 This repository contains the code used to process travel survey data, compute routing attributes using three methods, and estimate revealed-preference choice models.
