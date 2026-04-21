@@ -1,0 +1,11 @@
+*.Rproj
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Renviron
+.env
+/input
+/output
+/saved_images
+/paper

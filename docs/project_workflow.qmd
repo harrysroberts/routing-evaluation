@@ -1,0 +1,233 @@
+---
+title: "Project Workflow"
+format: html
+toc: true
+number-sections: true
+---
+
+## Overview {.unnumbered}
+
+This document describes the full data processing, routing, and modelling workflow used in the accompanying paper. The pipeline:
+
+1.  Processes trip data from the [DECISIONS](https://www.stephanehess.me.uk/data.html) GPS-tracked travel diary survey
+
+2.  Computes travel time and distance attributes using three routing approaches:
+
+    -   **R5**: multimodal routing engine by [Conveyal](https://github.com/conveyal/r5)
+
+    -   **DO**: [dodgr](https://github.com/UrbanAnalyst/dodgr) routing R package with Ordnance Survey [Multimodal Routing Network](https://www.ordnancesurvey.co.uk/products/os-multi-modal-routing-network)
+
+    -   **GR**: Google [Routes API](https://developers.google.com/maps/documentation/routes)
+    
+3.  Evaluates the accuracy of these methods relative to observed trip distances and durations
+
+4.  Constructs a revealed-preference (RP) dataset
+
+5.  Estimates multinomial logit models using the *Apollo* package
+
+All steps are implemented in R and should be run sequentially.
+
+------------------------------------------------------------------------
+
+## Reproducibility and data access {.unnumbered}
+
+Full replication of this workflow requires access to several restricted or proprietary datasets:
+
+-   **DECISIONS survey data with GPS locations** (not redistributable)
+-   **OS MasterMap Road Network (OSMRN)** (licensed)
+-   **Google Maps Routes API key** (paid service)
+
+Where inputs cannot be redistributed, their required formats, file paths, and processing assumptions are documented below.
+
+------------------------------------------------------------------------
+
+## Process DECISIONS trip data
+
+### Inputs
+
+Manually extracted from the DECISIONS dataset:
+
+-   `trips` tab → `input/raw/trips.csv`
+-   `personal` tab → `input/raw/personal.csv`
+
+Spatial input: - Leeds boundary shapefile → `input/raw/boundary.shp`
+
+### Script
+
+`process_decisions.R`
+
+### Description
+
+This script:
+
+-   Loads raw DECISIONS trip and personal data\
+-   Converts origin and destination coordinates from **Well-Known Binary (WKB)** to **British National Grid**\
+-   Filters invalid trips and trips outside the Leeds boundary\
+-   Computes derived trip variables required for later analysis\
+-   Saves the processed dataset to `input/processed/trips.csv`
+
+------------------------------------------------------------------------
+
+## Compute R5 routing attributes
+
+### Requirements
+
+The directory `input/raw/r5r/` must contain:
+
+-   OpenStreetMap extract (`.pbf`)
+-   Bus GTFS feed (`.zip`)
+-   Rail GTFS feed (`.zip`)
+-   Elevation raster (`.tif`)
+
+The elevation raster can be generated using `get_elevation.R`
+
+### Script
+
+`get_R5_attributes.R`
+
+### Description
+
+This script:
+
+-   Loads processed DECISIONS trip data\
+-   Builds a multimodal R5 transport network\
+-   Computes distance and time estimates for walk, bicycle, car, bus and rail
+-   Merges results into a wide format dataset (one row per trip)\
+-   Saves output to `input/processed/R5_attributes.csv`
+
+------------------------------------------------------------------------
+
+## Compute distance-only (DO) attributes
+
+### Requirements
+
+The directory `input/raw/` must contain the OS MRN geopackage `osmrn.gpkg`
+
+### Script
+
+`get_DO_attributes.R`
+
+### Description
+
+This script:
+
+-   Loads the `losdos` package
+-   Buffers the Leeds boundary by 2 km and saves it as `input/raw/boundary.gpkg`
+-   Loads DECISIONS trips and reformats required columns
+-   Computes distance and time using `osmrn_trip_attributes()` from `losdos`
+-   Saves outputs to `input/processed/DO_attributes.csv`
+
+------------------------------------------------------------------------
+
+## Compute Google Routes (GR) attributes
+
+### Requirements
+
+The directory `input/raw/` must contain a valid Google Maps API key in `api_key.txt`
+
+### Script
+
+`get_GR_attributes.R`
+
+### Description
+
+This script:
+
+-   Defines a wrapper function for calls to the Google Routes API
+-   Computes distance and duration estimates for each trip and mode
+-   Handles public transport modes separately:
+    -   `transitPreferences` set to `BUS` or `RAIL`
+    -   Step-level vehicle types are extracted from `routes.legs.steps.transitDetails.transitLine.vehicle.type`
+    -   If the identified route for a bus trip contains either no bus stages or at least one rail stage, then it is marked as unroutable, as this analysis is limited to unimodal journeys
+    -   Likewise, if the identified route for a rail trip contains either no rail stages or at least one bus stage, then it is marked as unroutable
+    -   Alongside total distance and time, the waiting, in-vehicle and transfer/access times are also extracted, plus the total number of transfers
+-   Merges all mode-specific results into a single dataset\
+-   Saves outputs to `input/processed/GR_attributes.csv`
+
+------------------------------------------------------------------------
+
+## Merge routing attributes
+
+### Script
+
+`merge_attributes.R`
+
+### Description
+
+Combines R5, DO, and GR attributes into a single dataset:
+
+-   Output: `input/processed/trip_attributes.csv`
+
+------------------------------------------------------------------------
+
+## Compare routing accuracy
+
+### Script
+
+`compare_accuracy.R`
+
+### Description
+
+This script:
+
+-   Converts trip attributes into a long-format comparative dataset
+-   Filters estimates to those matching each trip’s observed mode choice
+-   Estimates parking time adjustments using quantile regression:
+    -   `rq` function from `quantreg` [package](https://cran.r-project.org/web/packages/quantreg/index.html) used 
+    -   Outputs saved to `input/processed/parking_times.csv`
+-   Computes accuracy metrics:
+    -   ratio: recorded/(estimated + parking)
+    -   log-ratio
+    -   absolute log-ratio
+-   Produces:
+    -   comparative scatter plots
+    -   kernel density plots of log-ratios
+-   Conducts statistical tests:
+    -   Friedman tests for walk, bike, and car
+    -   Pairwise Wilcoxon tests for all modes
+
+------------------------------------------------------------------------
+
+## Prepare revealed-preference dataset
+
+### Script
+
+`process_rp.R`
+
+### Description
+
+This script:
+
+-   Defines availability variables for bus and rail by each routing method
+-   Constructs the choice variable conditional on observed mode
+-   Sets taxi times equal to car times prior to parking adjustment
+-   Applies parking adjustments to bicycle and car times
+-   Defines travel costs:
+    -   Car: £0.45 per mile
+    -   Taxi: [Leeds City Council 2026 fares](https://www.leeds.gov.uk/licensing/taxi-and-private-hire-licensing/are-you-taxi-aware), discounted to 2016/17 prices
+    -   Bus: [2016 First Bus single fares](https://www.urbantransportgroup.org/system/files/general-docs/Fares%2520research.docx)\
+    -   Rail: assumed equal to bus fares\
+-   Saves the RP dataset to `input/processed/trips_rp.csv`
+
+------------------------------------------------------------------------
+
+## Estimate choice models
+
+### Scripts
+
+-   `choice_models_GR.R`
+-   `choice_models_R5.R`
+-   `choice_models_DO.R`
+
+### Description
+
+Each script:
+
+-   Estimates a base model and six perturbation models using the `apollo` package
+-   Applies mode availability constraints
+-   Replaces missing perturbation estimates with base estimates, collapsing the corresponding perturbation terms to zero
+-   Estimates models by fixing the appropriate gamma and delta parameters
+-   Collects key outputs, estimates and robust standard errors into a summary table
+-   Saves:
+    -   Model objects to `output/choicemodels/`
+    -   Summary tables to `output/choicemodels/<base>_output.csv`
