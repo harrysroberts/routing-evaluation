@@ -4,7 +4,7 @@ library(sf)
 devtools::install_github("harrysroberts/losdos")
 library(losdos)
 
-read_sf("input/boundary/district_borough_unitary_region.shp") %>%
+read_sf("input/raw/boundary/district_borough_unitary_region.shp") %>%
   filter(str_detect(NAME,"Leeds")) %>%
   st_buffer(2000) %>%
   write_sf("input/raw/boundary.gpkg")
