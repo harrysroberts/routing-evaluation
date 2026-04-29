@@ -11,13 +11,14 @@ read_sf("input/boundary/district_borough_unitary_region.shp") %>%
 
 trips <- read_csv("input/processed/decisions_processed.csv") %>%
   rename(
+    id = trip_id,
     from_easting = start_easting,
     from_northing = start_northing,
     to_easting = stop_easting,
     to_northing = stop_northing
     ) %>%
   select(
-    trip_id,
+    id,
     period,
     from_easting,
     from_northing,
