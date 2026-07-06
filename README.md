@@ -1,5 +1,7 @@
 # Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21224724.svg)](https://doi.org/10.5281/zenodo.21224724)
+
 Replication code for:
 > Roberts, H. S., Calastri, C., Batley, R. (under review) "Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling". Manuscript submitted for publication.
 
