@@ -34,7 +34,7 @@ All steps are implemented in R and should be run sequentially.
 Full replication of this workflow requires access to several restricted or proprietary datasets:
 
 -   **DECISIONS survey data with GPS locations** (not redistributable)
--   **OS MasterMap Road Network (OSMRN)** (licensed)
+-   **OS Multimodal Routing Network (OSMRN)** (licensed)
 -   **Google Maps Routes API key** (paid service)
 
 Where inputs cannot be redistributed, their required formats, file paths, and processing assumptions are documented below.
@@ -63,7 +63,7 @@ This script:
 -   Loads raw DECISIONS trip and personal data\
 -   Converts origin and destination coordinates from **Well-Known Binary (WKB)** to **British National Grid**\
 -   Filters invalid trips and trips outside the Leeds boundary\
--   Computes derived trip variables required for later analysis\
+-   Extracts derived trip attributes required for later analysis\
 -   Saves the processed dataset to `input/processed/trips.csv`
 
 ------------------------------------------------------------------------
@@ -91,13 +91,13 @@ This script:
 
 -   Loads processed DECISIONS trip data\
 -   Builds a multimodal R5 transport network\
--   Computes distance and time estimates for walk, bicycle, car, bus and rail
+-   Computes distance and time estimates for each trip
 -   Merges results into a wide format dataset (one row per trip)\
 -   Saves output to `input/processed/R5_attributes.csv`
 
 ------------------------------------------------------------------------
 
-## Compute distance-only (DO) attributes
+## Compute dodgr/OSMRN (DO) attributes
 
 ### Requirements
 
@@ -113,7 +113,9 @@ This script:
 
 -   Loads the `losdos` package
 -   Buffers the Leeds boundary by 2 km and saves it as `input/raw/boundary.gpkg`
--   Loads DECISIONS trips and reformats required columns
+-   Loads DECISIONS trips and formats required columns
+-   Filters out public transport trips, as the OS MRN is limited to walking, 
+    cycling, and driving
 -   Computes distance and time using `osmrn_trip_attributes()` from `losdos`
 -   Saves outputs to `input/processed/DO_attributes.csv`
 
@@ -146,7 +148,7 @@ This script:
 
 ------------------------------------------------------------------------
 
-## Merge routing attributes
+## Merge attributes
 
 ### Script
 
@@ -223,7 +225,7 @@ This script:
 
 Each script:
 
--   Estimates a base model and six perturbation models using the `apollo` package
+-   Estimates base model and perturbation models using the `apollo` package
 -   Applies mode availability constraints
 -   Replaces missing perturbation estimates with base estimates, collapsing the corresponding perturbation terms to zero
 -   Estimates models by fixing the appropriate gamma and delta parameters
