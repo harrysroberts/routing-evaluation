@@ -33,9 +33,6 @@ If you use this code in your research, please cite the underlying paper:
 
 Roberts, H. S., Calastri, C., Batley, R. (under review) "Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling". Manuscript submitted for publication.
 
-## License
-MIT License. See LICENSE file for details.
-
 **BibTeX:**
 
 ```bibtex
@@ -46,6 +43,9 @@ MIT License. See LICENSE file for details.
   note        = {Manuscript submitted for publication}
 }
 ```
+
+## License
+MIT License. See LICENSE file for details.
 
 ## Author
 
