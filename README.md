@@ -31,7 +31,7 @@ The following inputs are not included:
 - Packages: `tidyverse`, `sf`, `apollo`, `r5r`, `httr`, `jsonlite`, `quantreg`, `patchwork`, `losdos` (available from author's github)
 
 ## Citation
-If you use this code in your research, please cite the underlying paper amd this repository as follows:
+If you use this code in your research, please cite the underlying paper and this repository as follows:
 
 Roberts, H. S., Calastri, C., Batley, R. (under review) "Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling". Manuscript submitted for publication.
 
