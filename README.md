@@ -3,7 +3,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21224724.svg)](https://doi.org/10.5281/zenodo.21224724)
 
 Replication code for:
-> Roberts, H. S., Calastri, C., Batley, R. (under review) "Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling". Manuscript submitted for publication.
+> Roberts, H. S., Calastri, C., Batley, R. (2026) "Evaluating open-source approaches for estimating unobserved trip attributes in transport choice modelling". The 58th Universities’ Transport Study Group Annual Conference, 15 July, Guildford, UK.
 
 
 ## Overview
@@ -33,7 +33,7 @@ The following inputs are not included:
 ## Citation
 If you use this code in your research, please cite the underlying paper and this repository as follows:
 
-Roberts, H. S., Calastri, C., Batley, R. (under review) "Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling". Manuscript submitted for publication.
+Roberts, H. S., Calastri, C., Batley, R. (2026) "Evaluating open-source approaches for estimating unobserved trip attributes in transport choice modelling". The 58th Universities’ Transport Study Group Annual Conference, 15 July, Guildford, UK.
 
 Roberts, H. (2026) “Replication code for evaluation of attribute estimation methods”. Zenodo. doi:10.5281/zenodo.21224724.
 
@@ -41,11 +41,14 @@ Roberts, H. (2026) “Replication code for evaluation of attribute estimation me
 **BibTeX:**
 
 ```bibtex
-@article{roberts_under_review_evaluating,
-  author      = {Roberts, Harry Samuel and Calastri, Chiara and Batley, Richard},
-  title       = {Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling},
-  year        = {under review},
-  note        = {Manuscript submitted for publication}
+@inproceedings{roberts2026evaluating,
+author = {Roberts, H. S. and Calastri, C. and Batley, R.},
+title = {Evaluating Open-Source Approaches for Estimating Unobserved Trip Attributes in Transport Choice Modelling},
+booktitle = {Proceedings of the 58th Universities' Transport Study Group Annual Conference},
+year = {2026},
+address = {Guildford, UK},
+month = jul,
+day = {15}
 }
 
 @software{roberts_2026_21224724,
