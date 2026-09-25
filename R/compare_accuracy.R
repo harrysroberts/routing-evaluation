@@ -5,7 +5,7 @@ library(quantreg)
 trips_attributes <- read_csv("input/processed/trips_attributes.csv")
 
 #Create a dataset that only compares the chosen alternative's attributes
-trips_comparison <- trips_attributes %>%
+trips_comparison <- trips_attributes %>% 
   
   #get rid of waiting time for bus and rail - not appropriate given apps
   mutate(
@@ -92,7 +92,7 @@ write_csv(trips_comparison,"output/accuracy/trips_comparison.csv")
 
 trips_comparison_stats <- trips_comparison %>%
   #removes the 5 cases where the ratio was infinite and the 295 cases where it was NA (because GR or R5 couldn't find bus/rail routes)
-  filter(ratio != 0 & ratio != Inf & !is.nan(ratio)) %>% 
+  filter(ratio != Inf & !is.na(ratio)) %>% 
   group_by(mode,attribute,method) %>%
   summarise(
     geomean = exp(mean(lr)),
@@ -281,7 +281,7 @@ distance_density <- trips_comparison %>%
   facet_grid(mode ~ method, scales = "free",space = "free_y") +
   scale_x_continuous(
     breaks = log(c(0.25,0.5, 1, 2, 4)),
-    labels = c("-ln 4","-ln 2", 0,"ln 2","ln 4"),
+    labels = c(0.25,0.5, 1,2,4),
     limits = log(c(0.25, 4))
   ) +
   scale_y_continuous(
@@ -289,7 +289,7 @@ distance_density <- trips_comparison %>%
     labels = c("0","2","4"),
     limits = c(0,5.2)
   ) +
-  labs(x = "Distance Log-Ratio", y = "Density") +
+  labs(x = "Distance accuracy ratio", y = "Density") +
   geom_text(
     data = tibble(
       method = factor(c("DO","DO"), levels = c("GR","R5","DO")),
@@ -330,7 +330,7 @@ time_density <- trips_comparison %>%
   facet_grid(mode ~ method, scales = "free") +
   scale_x_continuous(
     breaks = log(c(0.125,0.25,0.5, 1, 2, 4, 8)),
-    labels = c("-ln 8","-ln 4","-ln 2", 0,"ln 2","ln 4","ln 8"),
+    labels = c(0.125,0.25,0.5, 1,2,4,8),
     limits = log(c(0.125, 8))
   ) +
   scale_y_continuous(
@@ -338,7 +338,7 @@ time_density <- trips_comparison %>%
     labels = c("0","1","2"),
     limits = c(0,2)
   ) +
-  labs(x = "Time Log-Ratio", y = "Density") +
+  labs(x = "Time accuracy ratio", y = "Density") +
   geom_text(
     data = tibble(
       method = factor(c("DO","DO"), levels = c("GR","R5","DO")),

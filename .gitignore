@@ -10,3 +10,5 @@
 /saved_images
 /paper
 .positai
+/rjavaenv
+.Rprofile

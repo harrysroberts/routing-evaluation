@@ -235,5 +235,3 @@ R5_attributes <- trips %>%
 ## Save
 
 write_csv(R5_attributes,"input/processed/R5_attributes.csv")
-
-
