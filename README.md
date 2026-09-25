@@ -34,7 +34,7 @@ If you use this code in your research, please cite the underlying paper and this
 
 > Roberts, H. S., Calastri, C., Batley, R. (2026). Evaluating open-source approaches for estimating unobserved trip attributes in transport choice modelling. In: _Proceedings of the 58th Universities’ Transport Study Group Annual Conference_. Guildford, UK.
 
-> Roberts, H. 2026. Replication code for evaluation of attribute estimation methods. Available from: https://doi.org/10.5281/zenodo.21224724.
+> Roberts, H. S. 2026. Replication code for evaluation of attribute estimation methods. Available from: https://doi.org/10.5281/zenodo.21224724.
 
 **BibTeX:**
 
@@ -47,12 +47,12 @@ If you use this code in your research, please cite the underlying paper and this
   address      = {Guildford, UK},
 }
 
-@software{roberts_2026_21224724,
-  author       = {Roberts, Harry},
-  title        = {Replication code for evaluation of attribute estimation methods},
-  year         = 2026,
-  version      = {v1.0.0},
-  url          = {https://doi.org/10.5281/zenodo.21224724}
+@software{roberts_2026_21222208,
+  author      = {Roberts, Harry Samuel},
+  title       = {losdos},
+  year        = 2026,
+  version     = {v1.0.0},
+  url         = {https://doi.org/10.5281/zenodo.21222208},
 }
 ```
 
