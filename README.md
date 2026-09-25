@@ -3,8 +3,8 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21224724.svg)](https://doi.org/10.5281/zenodo.21224724)
 
 Replication code for:
-> Roberts, H. S., Calastri, C., Batley, R. 2026. _Evaluating open-source approaches for estimating unobserved trip attributes in transport choice modelling_. The 58th Universities’ Transport Study Group Annual Conference, 15 July, Guildford, UK.
-
+> Roberts, H. S., Calastri, C., Batley, R. (2026). Evaluating open-source approaches for estimating unobserved trip attributes in transport choice modelling. In: _Proceedings of the 58th Universities’ Transport Study Group Annual Conference_. Guildford, UK.
+> 
 ## Overview
 This repository contains the code used to process travel survey data, compute routing attributes using three methods, and estimate revealed-preference choice models.
 
