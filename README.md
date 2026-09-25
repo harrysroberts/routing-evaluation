@@ -3,9 +3,8 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21224724.svg)](https://doi.org/10.5281/zenodo.21224724)
 
 Replication code for:
-> Roberts, H. S., Calastri, C., Batley, R. (under review) "Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling". Manuscript submitted for publication.
-
-
+> Roberts, H. S., Calastri, C., Batley, R. (2026). Evaluating open-source approaches for estimating unobserved trip attributes in transport choice modelling. In: _Proceedings of the 58th Universities’ Transport Study Group Annual Conference_. Guildford, UK.
+> 
 ## Overview
 This repository contains the code used to process travel survey data, compute routing attributes using three methods, and estimate revealed-preference choice models.
 
@@ -33,31 +32,27 @@ The following inputs are not included:
 ## Citation
 If you use this code in your research, please cite the underlying paper and this repository as follows:
 
-Roberts, H. S., Calastri, C., Batley, R. (under review) "Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling". Manuscript submitted for publication.
+> Roberts, H. S., Calastri, C., Batley, R. (2026). Evaluating open-source approaches for estimating unobserved trip attributes in transport choice modelling. In: _Proceedings of the 58th Universities’ Transport Study Group Annual Conference_. Guildford, UK.
 
-Roberts, H. (2026) “Replication code for evaluation of attribute estimation methods”. Zenodo. doi:10.5281/zenodo.21224724.
-
+> Roberts, H. S. 2026. Replication code for evaluation of attribute estimation methods. Available from: https://doi.org/10.5281/zenodo.21224724.
 
 **BibTeX:**
 
 ```bibtex
-@article{roberts_under_review_evaluating,
-  author      = {Roberts, Harry Samuel and Calastri, Chiara and Batley, Richard},
-  title       = {Evaluating open-source approaches for estimating level-of-service attributes in transport choice modelling},
-  year        = {under review},
-  note        = {Manuscript submitted for publication}
+@inproceedings{roberts2026evaluating,
+  author       = {Roberts, H. S. and Calastri, C. and Batley, R.},
+  title        = {Evaluating Open-Source Approaches for Estimating Unobserved Trip Attributes in Transport Choice Modelling},
+  booktitle    = {Proceedings of the 58th Universities' Transport Study Group Annual Conference},
+  year         = {2026},
+  address      = {Guildford, UK},
 }
 
-@software{roberts_2026_21224724,
-  author       = {Roberts, Harry},
-  title        = {Replication code for evaluation of attribute
-                   estimation methods},
-  month        = jul,
-  year         = 2026,
-  publisher    = {Zenodo},
-  version      = {v1.0.0},
-  doi          = {10.5281/zenodo.21224724},
-  url          = {https://doi.org/10.5281/zenodo.21224724},
+@software{roberts_2026_21222208,
+  author      = {Roberts, Harry Samuel},
+  title       = {losdos},
+  year        = 2026,
+  version     = {v1.0.0},
+  url         = {https://doi.org/10.5281/zenodo.21222208},
 }
 ```
 
