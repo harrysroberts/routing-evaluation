@@ -42,19 +42,18 @@ Roberts, H. (2026) “Replication code for evaluation of attribute estimation me
 
 ```bibtex
 @inproceedings{roberts2026evaluating,
-author = {Roberts, H. S. and Calastri, C. and Batley, R.},
-title = {Evaluating Open-Source Approaches for Estimating Unobserved Trip Attributes in Transport Choice Modelling},
-booktitle = {Proceedings of the 58th Universities' Transport Study Group Annual Conference},
-year = {2026},
-address = {Guildford, UK},
-month = jul,
-day = {15}
+  author       = {Roberts, H. S. and Calastri, C. and Batley, R.},
+  title        = {Evaluating Open-Source Approaches for Estimating Unobserved Trip Attributes in Transport Choice Modelling},
+  booktitle    = {Proceedings of the 58th Universities' Transport Study Group Annual Conference},
+  year         = {2026},
+  address      = {Guildford, UK},
+  month        = jul,
+  day          = {15}
 }
 
 @software{roberts_2026_21224724,
   author       = {Roberts, Harry},
-  title        = {Replication code for evaluation of attribute
-                   estimation methods},
+  title        = {Replication code for evaluation of attribute estimation methods},
   month        = jul,
   year         = 2026,
   publisher    = {Zenodo},
